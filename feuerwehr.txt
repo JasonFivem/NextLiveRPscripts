@@ -1,0 +1,29 @@
+fire department script fivem:
+
+
+-- Feuerwehr-Job-Definition
+ESX.RegisterJob('fire', 'Feuerwehrmann', function(source)
+  -- Code zur Anpassung an den Feuerwehr-Job hier
+end)
+
+-- Funktion zum Starten des Feuerwehreinsatzes
+function startFireDepartmentMission(location, type)
+  -- Rufen Sie alle Feuerwehrleute im Spiel auf, um sich bereitzumachen
+  for i,player in ipairs(ESX.GetPlayers()) do
+    local job = ESX.GetPlayerFromId(player).job.name
+    if job == 'fire' then
+      TriggerClientEvent('esx:showNotification', player, "Einsatz bei Feuerwehr, machen Sie sich bereit!")
+    end
+  end
+
+  -- Senden Sie alle Feuerwehrleute zum Einsatzort
+  for i,player in ipairs(ESX.GetPlayers()) do
+    local job = ESX.GetPlayerFromId(player).job.name
+    if job == 'fire' then
+      TriggerClientEvent('esx_fire:sendToLocation', player, location, type)
+    end
+  end
+end
+
+-- Beispielaufruf der startFireDepartmentMission-Funktion
+startFireDepartmentMission({x = x, y = y, z = z}, "hausbrand")
